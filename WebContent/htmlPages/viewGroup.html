@@ -1,0 +1,120 @@
+
+			<div class="span4 offset1" id="viewGroupdetails" style="width: auto;  ">
+				<center>
+				<img alt="loading..." id="imgSpinner" src="img/spinner.gif"></center>
+					<table class="table table-striped table-bordered hide">
+					<thead><tr style="background-color: #0088cc;color: white;"><th>Name</th><th>Description</th><th>Group-Code</th><th>Status</th><th>Action</th><th>Action</th></tr></thead>
+					<tbody>					
+					</tbody>
+					</table>				
+			 </div> 
+			 
+			 
+			<div id="status_div" class="modal hide" style="width: auto;">
+			<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			<i class="icon-remove"></i></button>
+			<h3>Change Status</h3>
+			</div>
+			<div class="modal-body">
+		 		<form method="post" id="statusFrm">
+				<fieldset>
+				<table class="table table-bordered"><tbody>
+				<tr><td><label for="spGCode">Group-Code:</label></td><td><span id="spGCode"></span></td></tr>
+				<tr><td><label for="status">Status:</label></td><td><select id="seStatus" style="width: 100px;">
+				<option value="1">Active</option>
+				<option value="2">Locked</option>
+				<option value="3">Archived</option>
+				</select></td></tr>
+				</tbody></table>							
+				<p><input type="button" id="btnChange" value="Change" class="btn btn-primary"/></p>
+				</fieldset>
+				</form>
+			 </div> 
+			</div>
+		
+		
+	<script type="text/javascript">
+$(document).ready(function(){
+	
+		$.post("viewGroup.process",function(data){
+			if(data != null)
+				{
+					showGroupDetails(data);
+				}
+			else
+				{
+					$("#imgSpinner").hide();
+					$("#viewGroupdetails").hide();
+					showNotification("No Group found.");
+				}
+		});
+
+
+		function getStatusById(id) {
+			var state="";
+			if(id==1)
+				state="Active";
+			else if(id==2)
+				state="Locked";
+			else if(id==3)
+				state="Archived";
+			return state;
+		}
+	
+	function showGroupDetails(objGroup)
+	{
+		var htmlDetails='';
+		var jsonObject=$.parseJSON(objGroup);
+		$(jsonObject).each(function(i,v){
+			htmlDetails+='<tr><td>'+ v.name + '</td><td>'+ v.description + '</td><td class="tdGroupCode">'+ v.code + '</td><td class="tdStatus">'+getStatusById(v.status) + '</td><td><a href="#" class="aReset" rel="'+v.groupId+'"><i class="icon-refresh"></i>&nbsp;Reset Group-Code</a></td><td><a href="#" class="aStatus" rel="'+v.groupId+'" ref="'+v.status+'"><i class="icon-retweet"></i>&nbsp;Change Status</a></td></tr>';
+		});
+		$("#imgSpinner").hide();
+		$("#viewGroupdetails table tbody").html(htmlDetails);
+		$("#viewGroupdetails table").show();
+		$(".aReset").unbind('click').click(function(){
+			resetGroup(this);
+		});
+		$(".aStatus").unbind('click').click(function(){
+			resetStatus(this);
+		});
+	}
+	
+	function resetGroup(obj)
+	{
+		var groupId=$(obj).attr('rel');
+		if(confirm('Are you sure to reset Group-Code?'))
+			{
+		 $.post("resetGroupCode.process",{'id': groupId},
+				function(data){
+		var gCodeTD=$(obj).closest('tr').find('.tdGroupCode');
+		$(gCodeTD).html(data);
+		});
+			}
+	}
+	
+	function resetStatus(obj)
+	{	
+		var groupId=$(obj).attr('rel');
+		var statusId=$(obj).attr('ref');
+		var groupCode=$(obj).closest('tr').find('.tdGroupCode').text();
+		
+		$("#status_div").modal("show");
+		$("#status_div #spGCode").text(groupCode);
+		$("#status_div #seStatus").val(statusId);
+		$("#status_div #btnChange").unbind('click').click(function(){
+			if(parseInt(statusId)!= parseInt($("#status_div #seStatus").val()))
+				{
+			$.post("resetStatus.process",{'id':groupId,'status':$("#status_div #seStatus").val()},function(data){
+			$("#status_div").modal("hide");
+			$("#alertText").html(data);
+			$("#alert_div").modal("show");
+			$(obj).closest('tr').find('.tdStatus').html($("#status_div #seStatus option:selected").text());
+			$(obj).attr('ref',$("#status_div #seStatus").val());
+			});
+				}
+		});
+	}
+});			
+	</script>			
+		

@@ -1,0 +1,12 @@
+1. install tomcat
+2. go to window -> preference -> runtime env -> server
+3. add tomcar 9.0 -> browse the file where it is located in computer C: folder
+4. right click on project 
+5. run as server
+6. add localhost and next and select project and then finish
+7. go to winodw -> view perspective -> other -> search server -> click on it
+8. see if it is visible in bottom with console
+9. check server is stopped , right click and click on open
+10. provide the unique port like 8081 or 8082
+11. save it
+12 run the app again by right click on run as -> server

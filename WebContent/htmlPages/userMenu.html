@@ -1,0 +1,56 @@
+<div class="span2 offset1">
+<ul class="nav nav-list">
+<li class="nav-header">Groups</li>
+<li ><a href="#" id="joinGroup">Join</a></li>
+<li ><a href="#" id="showGroup">View</a></li>
+<li class="nav-header">Quiz</li>
+<li><a href="#" id="showQuiz">View</a></li>
+<li><a href="#" id="showResult">Result</a></li>
+<li class="nav-header">Interaction</li>
+<li><a href="#" id="viewNotification">Notification</a></li>
+<li><a href="#" id="viewMessage">Message</a></li>
+</ul>
+</div>
+	
+	<!-- modal form which is displayed on an event -->
+	
+	<div id="notification_div" class="span4 offset2 text-info hide">
+	
+	</div>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		//to display joined Group
+		$("#showGroup").click(function(){	
+			loadHomeBody("jspPages/showGroup.jsp");
+		});
+		
+		//to join new Group
+		$("#joinGroup").click(function(){	
+			loadHomeBody("htmlPages/joinGroup.html");
+		});
+		
+		//to display all Quiz
+		$("#showQuiz").click(function(){	
+			loadHomeBody("jspPages/showQuiz.jsp");
+		});
+		
+		//to display all results
+		$("#showResult").click(function(){	
+			loadHomeBody("jspPages/showResult.jsp");
+		});
+		
+		//to display all notification
+		$("#viewNotification").click(function(){
+			loadHomeBody("jspPages/viewAllNotification.jsp");
+		});
+		
+		//to display all message
+		$("#viewMessage").click(function(){	
+			loadHomeBody("jspPages/viewAllMessage.jsp");
+		});
+	
+	});
+	
+	</script>

@@ -1,0 +1,85 @@
+<div class="span2 offset1">
+<ul class="nav nav-list">
+<li class="nav-header">Groups</li>
+<li><a href="#" id="newGroup">New</a></li>
+<li><a href="#" id="viewGroup">View</a></li>
+<li class="nav-header">Quiz</li>
+<li><a href="#" id="newQuiz">New</a></li>
+<li><a href="#" id="viewQuiz">View</a></li>
+<li class="nav-header">Assignment</li>
+<li><a href="#" id="ByGroup">Assign to Group</a></li>
+<li><a href="#" id="assigned">Assigned Quiz</a></li>
+<li><a href="#" id="UnAssign">UnAssign By Group</a></li>
+<li class="nav-header">Result</li>
+<li><a href="#" id="viewResultGraph">Result as Graph</a></li>
+<li class="nav-header">Interaction</li>
+<li><a href="#" id="notification">Notification</a></li>
+<li><a href="#" id="message">Message</a></li>
+</ul>
+</div>
+	
+	<!-- modal form which is displayed on an event -->
+	
+	<div id="notification_div" class="span4 offset2 text-info hide">
+	
+	</div>
+	
+			
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	//to display New Group form on the click Create Group option
+	$("#newGroup").click(function(){
+		loadHomeBody("htmlPages/newGroup.html");
+	});	
+	
+	// to view groups
+	$("#viewGroup").click(function(){
+		loadHomeBody("htmlPages/viewGroup.html");
+	});
+	
+	// to add new quizzes
+	$("#newQuiz").click(function(){	
+		loadHomeBody("htmlPages/newQuiz.html");
+	});
+	
+	// to display quizzes
+	$("#viewQuiz").click(function(){	
+		loadHomeBody("jspPages/viewQuiz.jsp");
+	});
+	
+	// to assign new quizzes by Group
+	$("#ByGroup").click(function(){	
+		loadHomeBody("jspPages/quizByGroup.jsp");
+	});
+	
+	// to view assign quizzes
+	$("#assigned").click(function(){	
+		loadHomeBody("jspPages/assignedQuiz.jsp");
+	});
+	
+	// to Unassign quizzes by Group
+	$("#UnAssign").click(function(){	
+		loadHomeBody("jspPages/unassignQuizByGroup.jsp");
+	});
+	
+	// to add notification
+	$("#notification").click(function(){
+		loadHomeBody("jspPages/addNotification.jsp");
+	});
+	
+	// to add message to group.
+	$("#message").click(function(){	
+		loadHomeBody("jspPages/addMessage.jsp");
+	});
+	
+	// to view result Graph.
+	$("#viewResultGraph").click(function(){	
+		 makeAjaxCall("resultinGraphForAllUser.process",null,showResultGraph);
+	});
+	function showResultGraph(msg)
+	{
+		 loadHomeBody("jspPages/resultGraph.jsp");
+	}
+});
+</script>

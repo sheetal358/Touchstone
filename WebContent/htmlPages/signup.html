@@ -1,0 +1,31 @@
+
+
+		<div id="signupfrm" class="span4 offset1">
+				
+				<form  method="post" action="register.process" id="newUserForm">
+				<fieldset>
+				<legend>New User Sign up</legend>
+				<label>Register me as an &nbsp;</label>
+				<input type="radio"  name="type" value="1"/>&nbsp;&nbsp;Assessor &nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" checked="checked" name="type" value="2" id="userType"/>&nbsp;&nbsp;Assessee 
+				
+				<p id="gcode" class=""><label for="group">Group Code:</label> <input type="text"  name="group" id="groupCode"/>&nbsp;&nbsp;<span class="text-error" id="errCode"></span></p>
+				<label for="name">Name:</label> <input type="text"  name="name" id="name"/>&nbsp;&nbsp;<span class="text-error" id="errName"></span>
+				<label for="mailId">MailId:</label> <input type="text"  name="mailId" id="mailId"/>&nbsp;&nbsp;<span class="text-error" id="errMail"></span>
+				<label for="password">Password:</label> <input type="password"  name="password" id="pass"/>&nbsp;&nbsp;<span class="text-error" id="errPass"></span>
+				<label for="question">Security Question:</label>
+				<select name="question">
+				<option>What is yours mother maiden name?</option>
+				<option>What is name of your first school?</option>
+				<option>What is your favorite hobby?</option>
+				<option>What is your favorite sport?</option>
+				<option>What is your favorite movie star?</option>
+				</select>				
+				<label for="answer">Answer:</label> <input type="text"  name="answer" />
+				
+				<p><input type="submit" value="sign up" class="btn btn-primary"/></p>
+				</fieldset>
+				</form>
+			</div>
+			
+			

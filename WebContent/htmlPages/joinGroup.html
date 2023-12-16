@@ -1,0 +1,47 @@
+
+			<div id="group_div"  style="width: auto;">
+			<div class="span4 offset2">			
+		 		<form id="joinGroupFrm">
+				<fieldset>
+				<legend>Join Group</legend>
+			 	<label for="name">Group Code:</label> 
+				<input type="text" id="code" name="code" placeholder="Enter Group Code"/><span class="text-error" id="errCode"></span>
+				<p><input type="button" id="btnJoin" value="Join" class="btn btn-primary"/></p>
+				</fieldset>
+				</form>
+			</div>	
+	</div>
+		
+		
+	<script type="text/javascript">
+$(document).ready(function(){
+	// to create new group
+	$("#btnJoin").click(function(){
+			var frm_data=$("#joinGroupFrm").serialize();
+			console.log(frm_data);
+			var code=$("#code").val();
+			if(code=="")
+				$("#errCode").html("Code can't be empty.");
+			else
+				{
+					$.post("validateGroupCode.process",{'code':code},function(data){
+						$("#errCode").html(data);
+						$("#errCode").css("color","green");
+	             	if(data.match("Code matched"))
+	            	 {
+	            		$("#errCode").html(data);
+	            		makeAjaxCall("joinGroup.process",frm_data,showNotification);
+	            	 }
+	             	else
+	            	 {
+	            		$("#errCode").html(data);
+	          			$("#errCode").css("color","#AC5959");
+	            	 }
+				});
+				}
+		});
+	
+	
+});			
+	</script>			
+		

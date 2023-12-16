@@ -1,0 +1,78 @@
+		<div class="span5 offset2">			
+		 		<form id="quizFrm">
+				<fieldset>
+				<legend>New Quiz</legend>
+			 	<label for="name">Name:</label> 
+				<input type="text" id="name"  name="name" placeholder="Enter Quiz Name"/>
+				<span class="text-error" id="errName"></span>
+				<label for="duration">Duration:</label> 
+				<input type="text" id="duration" name="duration" placeholder="Enter Duration in Min."/>
+				<span class="text-error" id="errTime"></span>
+				<p><input type="button" id="btnCreateQuiz" value="Create" class="btn btn-primary"/></p>
+				</fieldset>
+				</form>
+			</div>
+		
+		
+		
+	<script type="text/javascript">
+$(document).ready(function(){
+	// to create new group
+	$("#btnCreateQuiz").click(function(){
+			var frm_data=$("#quizFrm").serialize();
+			console.log(frm_data);
+			var n=$("#name").val();
+			var t=$("#duration").val();
+			var regex=/^[0-9]*$/;
+			if(n=="")
+				{
+					$("#errName").html("* Name can not be empty.");
+					return false;
+				}
+			else 
+				{
+					var flag=false;		
+					$.ajax({
+					    url: "findQuiz.process",
+					    data:{'name':n},
+					    success: function(data) {
+					    	if(data.match("not Available"))
+							{
+								$("#errName").html(data);
+							}
+							else
+							{
+								$("#errName").html(data);
+								flag= true;
+							}
+					    },
+					    async:false
+					  });
+					
+					if(!flag)
+						return false;
+				}
+			
+			if(t=="")
+				{	
+					$("#errTime").html("* Duration can not be empty.");
+					return false;
+				}
+			else if(!t.match(regex))
+				{
+					$("#errTime").html("* Duration can contain only numbers.");
+					return false;
+				}
+			else{
+				$("#errTime").html("");
+				makeAjaxCall("newQuiz.process",frm_data,getQuizEditor);
+			}
+	});	
+	  
+	function getQuizEditor()
+	{
+		loadHomeBody("jspPages/quizEditor.jsp");
+	}
+});	
+	</script>			
+		

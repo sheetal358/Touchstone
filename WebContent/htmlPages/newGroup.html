@@ -1,0 +1,46 @@
+
+			<div id="group_div"  style="width: auto;">
+			<div class="span4 offset2">			
+		 		<form id="groupFrm">
+				<fieldset>
+				<legend>New Group</legend>
+			 	<label for="name">Name:</label> 
+				<input type="text" id="name"  name="name" placeholder="Enter Group Name"/><span id="errName" class="text-error"></span>
+				<label for="description">Description:</label> 
+				<input type="text"  name="description" placeholder="Enter Description"/>
+				<p><input type="button" id="btnCreate" value="Create" class="btn btn-primary"/></p>
+				</fieldset>
+				</form>
+			</div>	
+	</div>
+		
+		
+	<script type="text/javascript">
+$(document).ready(function(){
+		$("#name").change(function(){
+			var name=$("#name").val();
+			makeAjaxCall("findGroupName.process",{'name':name},showError);
+		});
+	// to create new group
+	$("#btnCreate").click(function(){
+			var frm_data=$("#groupFrm").serialize();
+			console.log(frm_data);
+			var msg=$("#errName").html();
+			if(msg=="")
+				{
+					$("#errName").html("*Name can't be empty.");
+					return false;
+				}
+			if(msg.match("Valid name."))
+				{
+					makeAjaxCall("newGroup.process",frm_data,showNotification);
+				}
+		});
+	
+	function showError(data)
+	{
+		$("#errName").html(data);
+	}
+});			
+	</script>			
+		
